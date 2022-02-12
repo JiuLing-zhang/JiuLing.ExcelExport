@@ -6,6 +6,16 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Template.xlsx" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Template.xlsx">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\src\JiuLing.ExcelExport\JiuLing.ExcelExport.csproj" />
   </ItemGroup>
 
