@@ -66,24 +66,28 @@ namespace JiuLing.ExcelExport.Test
             var dt = new DataTable("dt1");
             dt.Columns.Add("Class");
             dt.Columns.Add("Name");
-            dt.Columns.Add("Score");
+            dt.Columns.Add("Score", System.Type.GetType("System.Int32"));
+            dt.Columns.Add("IsPass", System.Type.GetType("System.Boolean"));
 
             var dr = dt.NewRow();
             dr["Class"] = "1班";
             dr["Name"] = "张三";
             dr["Score"] = "90";
+            dr["IsPass"] = true;
             dt.Rows.Add(dr);
 
             dr = dt.NewRow();
             dr["Class"] = "2班";
             dr["Name"] = "李四";
             dr["Score"] = "80";
+            dr["IsPass"] = true;
             dt.Rows.Add(dr);
 
             dr = dt.NewRow();
             dr["Class"] = "2班";
             dr["Name"] = "王五";
-            dr["Score"] = "72";
+            dr["Score"] = "59";
+            dr["IsPass"] = false;
             dt.Rows.Add(dr);
             return dt;
         }
@@ -115,7 +119,7 @@ namespace JiuLing.ExcelExport.Test
         {
             var dt = new DataTable("dtOther");
             dt.Columns.Add("Name");
-            dt.Columns.Add("Time");
+            dt.Columns.Add("Time", System.Type.GetType("System.DateTime"));
 
             var dr = dt.NewRow();
             dr["Name"] = "课程表";
@@ -130,7 +134,7 @@ namespace JiuLing.ExcelExport.Test
             var dt = new DataTable("dt3");
             dt.Columns.Add("Class");
             dt.Columns.Add("Name");
-            dt.Columns.Add("Score");
+            dt.Columns.Add("Score", System.Type.GetType("System.Decimal"));
 
             var dr = dt.NewRow();
             dr["Class"] = "9班";

@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using System.Text.RegularExpressions;
 using JiuLing.ExcelExport.Items;
 using NPOI.HSSF.UserModel;
 using NPOI.SS.UserModel;
@@ -154,7 +153,8 @@ namespace JiuLing.ExcelExport
                     continue;
                 }
 
-                if (!dt.Columns.Contains(columnName))
+                var column = dt.Columns[columnName];
+                if (column == null)
                 {
                     throw new ArgumentException($"不存在的绑定：数据表{tableName}，列{columnName}");
                 }
@@ -165,7 +165,12 @@ namespace JiuLing.ExcelExport
             {
                 foreach (var bindingItem in bindingMap)
                 {
-                    row.GetCell(bindingItem.Value).SetCellValue("");
+                    var column = dt.Columns[bindingItem.Key];
+                    if (column == null)
+                    {
+                        throw new ArgumentException($"不存在的绑定：数据表{tableName}，列{bindingItem.Key}");
+                    }
+                    SetCellValue(row.GetCell(bindingItem.Value), column.DataType, "");
                 }
             }
             else
@@ -183,8 +188,15 @@ namespace JiuLing.ExcelExport
                     IRow newRow = sheet.GetRow(targetIndex);
                     foreach (var bindingItem in bindingMap)
                     {
-                        var value = dt.Rows[rowIndex][bindingItem.Key].ToString() ?? throw new ArgumentException($"数据异常：数据表{tableName}，列{bindingItem.Key}，行号{rowIndex}。"); ;
-                        newRow.GetCell(bindingItem.Value).SetCellValue(value);
+                        var column = dt.Columns[bindingItem.Key];
+                        if (column == null)
+                        {
+                            throw new ArgumentException($"不存在的绑定：数据表{tableName}，列{bindingItem.Key}");
+                        }
+
+                        object value = dt.Rows[rowIndex][bindingItem.Key];
+                        SetCellValue(newRow.GetCell(bindingItem.Value), column.DataType, value);
+
                     }
                 }
             }
@@ -206,14 +218,43 @@ namespace JiuLing.ExcelExport
                 throw new ArgumentException($"数据源中不包含{tableName}数据表");
             }
 
-            if (!dt.Columns.Contains(columnName))
+            var column = dt.Columns[columnName];
+            if (column == null)
             {
                 throw new ArgumentException($"不存在的绑定：数据表{tableName}，列{columnName}");
             }
 
-            var value = dt.Rows[0][columnName].ToString() ?? throw new ArgumentException($"数据异常：数据表{tableName}，列{columnName}，行号0。");
+            var value = dt.Rows[0][columnName];
+            SetCellValue(cell, column.DataType, value);
+        }
 
-            cell.SetCellValue(value);
+        private static void SetCellValue(ICell cell, Type type, object value)
+        {
+            switch (type.FullName)
+            {
+                case "System.String":
+                    cell.SetCellValue(value.ToString());
+                    cell.SetCellType(CellType.String);
+                    break;
+                case "System.Int16":
+                case "System.Int32":
+                case "System.Int64":
+                case "System.Decimal":
+                    cell.SetCellValue(Convert.ToDouble(value));
+                    cell.SetCellType(CellType.Numeric);
+                    break;
+                case "System.Boolean":
+                    cell.SetCellValue(Convert.ToBoolean(value));
+                    cell.SetCellType(CellType.Boolean);
+                    break;
+                case "System.DateTime":
+                    string t = Convert.ToDateTime(value).ToString("yyyy-MM-dd HH:mm:ss");
+                    cell.SetCellValue(t);
+                    cell.SetCellType(CellType.String);
+                    break;
+                default:
+                    throw new ArgumentException($"不支持的数据格式：{type.FullName}，行：{cell.RowIndex}，列：{cell.ColumnIndex}");
+            }
         }
     }
 }
