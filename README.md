@@ -6,10 +6,13 @@
 ## JiuLing.ExcelExport
 .Net 5开发的一个基于Excel模板导出的组件（基于NPOI），配置完成模板和数据源即可一键导出，支持多 `Sheet`导出。  
 
+![main.png](https://s2.loli.net/2022/02/13/mpFUlL7g8y2Gaho.png)  
+![sheet.png](https://s2.loli.net/2022/02/13/jHK4IT5vgDMNX36.png)  
+![sheet-export.png](https://s2.loli.net/2022/02/13/V4s6fwXhQEo8WU9.png)  
+
 ## 安装  
-* ~~通过`Nuget`直接安装。👉👉👉[`JiuLing.ExcelExport`](https://www.nuget.org/packages/JiuLing.ExcelExport)~~  
-* ~~下载最新的`Release`版本自己引用到项目。👉👉👉[`下载`](https://github.com/JiuLing-zhang/JiuLing.ExcelExport/releases)~~  
-* 开发中  
+* 通过`Nuget`直接安装。👉👉👉[`JiuLing.ExcelExport`](https://www.nuget.org/packages/JiuLing.ExcelExport)  
+* 下载最新的`Release`版本自己引用到项目。👉👉👉[`下载`](https://github.com/JiuLing-zhang/JiuLing.ExcelExport/releases)  
 
 ## 使用  
 1. 将要导出的数据保存为 `DataSet` 对象。
