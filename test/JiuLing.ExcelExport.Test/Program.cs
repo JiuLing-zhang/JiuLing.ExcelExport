@@ -41,9 +41,8 @@ namespace JiuLing.ExcelExport.Test
                 Console.WriteLine(s);
                 Console.WriteLine();
 
-                var templateFile = Path.Combine(System.AppContext.BaseDirectory, "Template.xlsx");
-                var destinationFile = Path.Combine(System.AppContext.BaseDirectory, "test.xlsx");
-
+                var templateFile = Path.Combine(AppContext.BaseDirectory, "Template.xlsx");
+                var destinationFile = Path.Combine(AppContext.BaseDirectory, "test.xlsx");
                 new TemplateData().Export(templateFile, destinationFile, ds);
                 Console.WriteLine("导出完成");
                 Console.WriteLine($"模板文件：{templateFile}");
