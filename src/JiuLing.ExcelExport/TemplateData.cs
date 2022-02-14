@@ -36,32 +36,36 @@ namespace JiuLing.ExcelExport
                 Directory.CreateDirectory(destinationDirectory);
             }
 
-            using FileStream fs = new FileStream(templateFile, FileMode.Open, FileAccess.Read);
-            using FileStream fsDestination = new FileStream(destinationFile, FileMode.Create, FileAccess.ReadWrite);
+
             IWorkbook workbook;
+            using (FileStream fs = new FileStream(templateFile, FileMode.Open, FileAccess.Read))
+            {
+                if (destinationFile.IndexOf(".xlsx") > 0)
+                {
+                    //07版本
+                    workbook = new XSSFWorkbook(fs);
+                }
+                else if (destinationFile.IndexOf(".xls") > 0)
+                {
+                    //03版本  
+                    workbook = new HSSFWorkbook(fs);
+                }
+                else
+                {
+                    throw new FileLoadException($"不支持的文件版本：{destinationFile}");
+                }
 
-            if (destinationFile.IndexOf(".xlsx") > 0)
-            {
-                //07版本
-                workbook = new XSSFWorkbook(fs);
+                using (FileStream fsDestination = new FileStream(destinationFile, FileMode.Create, FileAccess.ReadWrite))
+                {
+                    int sheetCount = workbook.NumberOfSheets;
+                    for (int index = 0; index < sheetCount; index++)
+                    {
+                        ISheet sheet = workbook.GetSheetAt(index);
+                        WriteSheet(sheet, data);
+                    }
+                    workbook.Write(fsDestination);
+                }
             }
-            else if (destinationFile.IndexOf(".xls") > 0)
-            {
-                //03版本  
-                workbook = new HSSFWorkbook(fs);
-            }
-            else
-            {
-                throw new FileLoadException($"不支持的文件版本：{destinationFile}");
-            }
-
-            int sheetCount = workbook.NumberOfSheets;
-            for (int index = 0; index < sheetCount; index++)
-            {
-                ISheet sheet = workbook.GetSheetAt(index);
-                WriteSheet(sheet, data);
-            }
-            workbook.Write(fsDestination);
         }
 
         private void WriteSheet(ISheet sheet, DataSet data)

@@ -4,7 +4,7 @@
 [![](https://img.shields.io/github/v/release/JiuLing-zhang/JiuLing.ExcelExport)](https://github.com/JiuLing-zhang/JiuLing.ExcelExport/releases)  
 
 ## JiuLing.ExcelExport
-.Net 5开发的一个基于Excel模板导出的组件（基于NPOI），配置完成模板和数据源即可一键导出，支持多 `Sheet`导出。  
+一个基于Excel模板导出的组件（基于NPOI），配置完成模板和数据源即可一键导出，支持多 `Sheet`导出。  
 
 ![main.png](https://s2.loli.net/2022/02/13/mpFUlL7g8y2Gaho.png)  
 ![sheet.png](https://s2.loli.net/2022/02/13/jHK4IT5vgDMNX36.png)  
