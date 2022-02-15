@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>netstandard2.0;netstandard2.1;net6.0</TargetFrameworks>
-		<Version>1.0.1</Version>
+		<Version>1.0.2</Version>
 		<Authors>九零</Authors>
 		<Description>一个基于Excel模板导出的组件（基于NPOI）</Description>
 		<PackageProjectUrl>https://github.com/JiuLing-zhang/JiuLing.ExcelExport</PackageProjectUrl>
@@ -12,12 +12,6 @@
 		<PackageReadmeFile>README.md</PackageReadmeFile>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 	</PropertyGroup>
-
-	<ItemGroup>
-	  <Compile Remove="Enums\**" />
-	  <EmbeddedResource Remove="Enums\**" />
-	  <None Remove="Enums\**" />
-	</ItemGroup>
 
 	<ItemGroup>
 		<None Include="..\..\nuget_icon.png">

@@ -244,15 +244,27 @@ namespace JiuLing.ExcelExport
                 case "System.Int32":
                 case "System.Int64":
                 case "System.Decimal":
-                    cell.SetCellValue(Convert.ToDouble(value));
+                    if (!double.TryParse(value.ToString(), out var d))
+                    {
+                        d = 0;
+                    }
+                    cell.SetCellValue(d);
                     cell.SetCellType(CellType.Numeric);
                     break;
                 case "System.Boolean":
-                    cell.SetCellValue(Convert.ToBoolean(value));
+                    if (!bool.TryParse(value.ToString(), out var b))
+                    {
+                        b = false;
+                    }
+                    cell.SetCellValue(b);
                     cell.SetCellType(CellType.Boolean);
                     break;
                 case "System.DateTime":
-                    string t = Convert.ToDateTime(value).ToString("yyyy-MM-dd HH:mm:ss");
+                    if (!DateTime.TryParse(value.ToString(), out var time))
+                    {
+                        time = DateTime.MinValue;
+                    }
+                    string t = time.ToString("yyyy-MM-dd HH:mm:ss");
                     cell.SetCellValue(t);
                     cell.SetCellType(CellType.String);
                     break;
