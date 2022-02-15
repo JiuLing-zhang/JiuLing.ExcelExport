@@ -16,7 +16,7 @@ namespace JiuLing.ExcelExport
             //列表绑定  %表名-列名-list%
             //值绑定    %表名-列名-0%
 
-            MatchCollection mc = Regex.Matches(cellValue, "%(?<tableName>.*)-(?<columnName>.*)-list%");
+            MatchCollection mc = Regex.Matches(cellValue, "{(?<tableName>.*)}-{(?<columnName>.*)}-list");
             if (mc.Count == 1)
             {
                 return new CellBindingInfo()
@@ -26,7 +26,7 @@ namespace JiuLing.ExcelExport
                     ColumnName = mc[0].Groups["columnName"].Value
                 };
             }
-            mc = Regex.Matches(cellValue, "%(?<tableName>.*)-(?<columnName>.*)-0%");
+            mc = Regex.Matches(cellValue, "{(?<tableName>.*)}-{(?<columnName>.*)}-0");
             if (mc.Count == 1)
             {
                 return new CellBindingInfo()
@@ -50,7 +50,7 @@ namespace JiuLing.ExcelExport
         /// <returns></returns>
         public static string GetCellBindingColumnName(string cellValue, string tableName)
         {
-            MatchCollection mc = Regex.Matches(cellValue, $"%{tableName}-(?<columnName>.*)-list%");
+            MatchCollection mc = Regex.Matches(cellValue, $"{{{tableName}}}-{{(?<columnName>.*)}}-list");
             if (mc.Count != 1)
             {
                 return "";
