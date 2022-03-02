@@ -5,6 +5,7 @@
 
 ## JiuLing.ExcelExport
 一个基于Excel模板导出的组件（基于NPOI），配置完成模板和数据源即可一键导出，支持多 `Sheet`导出。  
+这个项目初衷是为了解决公司的一个紧急需求，所以赶时间也没什么设计，很糙。。。。  
 
 ![main.png](https://s2.loli.net/2022/02/13/mpFUlL7g8y2Gaho.png)  
 ![sheet1.png](https://s2.loli.net/2022/02/15/kal7zMIhDXbFw4J.png)  
